@@ -1,0 +1,10 @@
+Gabriel Penido de Oliveira - 12558770
+-----------------------------------------------------------
+
+- Busca Sequencial
+    Esse método procura, em todas as casas do vetor em questão, o valor desejado. Em casos menores, pode até parecer que essa lógica seja rápida. Mas, quando o vetor possui muitas casas a serem preenchidas, a demora se torna perceptível.
+
+- Busca Binária
+    Esse método, além de não percorrer todas as casas, realiza a busca de uma maneira inteligente, otimizando o poder computacional e, consequentemente, o tempo de execução.
+
+Portanto, após essa análise informal, é possível concluir que, de fato, a busca binária se torna bem mais rápida e eficiente do que a busca sequencial.

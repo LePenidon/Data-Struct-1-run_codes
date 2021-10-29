@@ -1,0 +1,9 @@
+- todas as declarações do main eu coloquei no início da função, juntas, pois eu acho mais organizado assim.
+
+- criei a função distancia() no TAD "ponto". Fiz isso pois como essa função não utiliza nenhum recurso de um circulo, achei que combina mais defini-la em "ponto.h"
+
+- o parametro do raio circulo_set_raio() estava como int, mas o correto seria float. Isso foi corrigido.
+
+- nos comentários da funcao ponto_criar() e circulo_criar(), o "return" estava escrito de forma incorreta. Isso foi corrigido.
+
+- nos comentários da funcao ponto_get_x() e ponto_get_y(), o "coordenada" estava escrito de forma incorreta. Isso foi corrigido.
