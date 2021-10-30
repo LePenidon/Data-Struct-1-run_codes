@@ -10,14 +10,12 @@ struct item_ {
     char *url;
 };
 
-ITEM *item_criar(char *titulo, char *url) {
+ITEM *item_criar() {
     ITEM *item;
 
     item = (ITEM *)malloc(sizeof(ITEM));
 
     if (item != NULL) {
-        item->titulo = titulo;
-        item->url = url;
         return (item);
     }
     return (NULL);
@@ -59,7 +57,17 @@ bool item_set_url(ITEM *item, char *url) {
     return (false);
 }
 
+bool item_set_valores(ITEM *item, char *titulo, char *url) {
+    if (item != NULL) {
+        item->titulo = titulo;
+        item->url = url;
+
+        return (true);
+    }
+    return (false);
+}
+
 void item_imprimir(ITEM *item) {
     if (item != NULL)
-        printf("%s %s", item->titulo, item->url);
+        printf("%s %s\n", item->titulo, item->url);
 }

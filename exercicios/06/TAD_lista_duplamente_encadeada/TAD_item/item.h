@@ -10,12 +10,13 @@
 
 typedef struct item_ ITEM;
 
-ITEM *item_criar(char *titulo, char *url);
+ITEM *item_criar();
 bool item_apagar(ITEM **item);
 void item_imprimir(ITEM *item);
 char *item_get_titulo(ITEM *item);
 char *item_get_url(ITEM *item);
 bool item_set_titulo(ITEM *item, char *titulo);
 bool item_set_url(ITEM *item, char *titulo);
+bool item_set_valores(ITEM *item, char *titulo, char *url);
 
 #endif
