@@ -127,13 +127,14 @@ boolean lista_cheia(LISTA *lista) {
 
 boolean lista_troca_posicoes(LISTA *lista, char *titulo, int destino) {
     NO *p, *proximo, *anterior, *achou;
-    int i = 0, index, continuar = 1;
+    int i = 0, index, continuar = 1, destino_final;
     ITEM *aux;
+    destino_final = destino - 1;
 
     if (lista != NULL) {
         p = lista->inicio;
 
-        if (destino <= 0) {
+        if (destino_final < 0) {
             return (true);
         }
 
@@ -149,13 +150,10 @@ boolean lista_troca_posicoes(LISTA *lista, char *titulo, int destino) {
             p = p->proximo;
             i++;
         }
-        if (continuar || index == destino) {
-            printf("adasd");
+        if (continuar || index == destino_final) {
             return (false);
         }
-
-        if (destino >= lista_tamanho(lista) - 1) {
-            printf("11111");
+        if (destino_final >= lista_tamanho(lista) - 1) {
             aux = item_criar();
             item_set_valores(aux, item_get_titulo(p->item), item_get_url(p->item));
 
@@ -163,23 +161,19 @@ boolean lista_troca_posicoes(LISTA *lista, char *titulo, int destino) {
             lista_inserir_fim(lista, aux);
 
             return (TRUE);
-        } else if (destino == index + 1) {
-            printf("vagabunda");
-            return (false);
+        } else if (destino_final == 0) {
+            aux = item_criar();
+            item_set_valores(aux, item_get_titulo(p->item), item_get_url(p->item));
+
+            lista_remover_item(lista, titulo);
+            lista_inserir_inicio(lista, aux);
         } else {
-            printf("22222222");
-            i = 0;
-            p = lista->inicio;
-            while (p != NULL) {
-                if (i == destino) {
-                    anterior->proximo = proximo;
-                    p->anterior->proximo = achou;
-                    achou->proximo = p;
-                    break;
-                }
-                p = p->proximo;
-                i++;
-            }
+            aux = item_criar();
+            item_set_valores(aux, item_get_titulo(p->item), item_get_url(p->item));
+
+            lista_remover_item(lista, titulo);
+            lista_inserir_posicao(lista, aux, destino_final);
+
             return (TRUE);
         }
     }
@@ -235,4 +229,56 @@ void lista_imprimir(LISTA *lista) {
     printf("%s %s", item_get_titulo(no_aux->item), item_get_url(no_aux->item));
 
     printf("\n");
+}
+
+// funcao para inserir em uma posicao dada
+boolean lista_inserir_posicao(LISTA *lista, ITEM *item, int posicao) {
+    // declaracao das variaveis
+    int i;
+    NO *no_aux, *temp;
+    char *titulo, *url;
+
+    strcpy(titulo, item_get_titulo(item));
+    strcpy(url, item_get_url(item));
+
+    // verifica se a lista esta vazia
+    if (lista->inicio == NULL) {
+        printf("Lista invalida!\n");
+        return FALSE;
+    }
+
+    temp = lista->inicio;
+    i = 0;
+
+    // roda ate a achar a posicao
+    while (i < posicao - 1 && temp != NULL) {
+        temp = temp->proximo;
+        i++;
+    }
+
+    printf("\ntemp titulo: %s", item_get_titulo(temp->item));
+    printf("\ntemp url: %s\n\n", item_get_url(temp->item));
+
+    // verifica se esta null e insere o  item
+    if (temp != NULL) {
+        // no_aux->item = item_criar();
+        // item_set_valores(no_aux->item, titulo, url);
+
+        // no_aux->proximo = temp->proximo;
+        // no_aux->anterior = temp;
+
+        // if (temp->proximo != NULL) {
+        //     temp->proximo->anterior = no_aux;
+        // }
+
+        // temp->proximo = no_aux;
+
+        // lista->tamanho++;
+    } else {
+        // nao de certo
+        printf("Posicao invalida\n");
+        return FALSE;
+    }
+
+    return TRUE;
 }

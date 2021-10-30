@@ -23,5 +23,6 @@ boolean lista_vazia(LISTA *lista);
 boolean lista_cheia(LISTA *lista);
 boolean lista_troca_posicoes(LISTA *lista, char *titulo, int destino);
 void lista_imprimir(LISTA *lista);
+boolean lista_inserir_posicao(LISTA *lista, ITEM *item, int posicao);
 
 #endif

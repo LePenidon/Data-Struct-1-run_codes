@@ -44,60 +44,65 @@ char *le_url() {
     return final;
 }
 
+void f01(LISTA *lista, char *titulo, char *url) {
+    ITEM *item = item_criar();
+
+    item_set_valores(item, titulo, url);
+    lista_inserir_fim(lista, item);
+
+    return;
+}
+
+void f02(LISTA *lista, char *titulo, int posicao) {
+    if (posicao == 0) {
+        return;
+    }
+
+    lista_troca_posicoes(lista, titulo, posicao);
+
+    return;
+}
+
+void f03(LISTA *lista) {
+    lista_imprimir(lista);
+
+    return;
+}
+
+void f04(void) {
+    exit(EXIT_SUCCESS);
+}
+
 // funcao principal do programa
 int main(void) {
     // criacao das variaveis
-    int i;
+    int valor_menu;
+    int posicao_futura;
     char *titulo;
     char *url;
-    ITEM *item = item_criar();
     LISTA *lista = lista_criar();
 
-    titulo = le_titulo();
-    url = le_url();
+    do {
+        scanf(" %d", &valor_menu);
+        getchar();
 
-    item_set_valores(item, titulo, url);
-    lista_inserir_fim(lista, item);
+        if (valor_menu == 1) {
+            titulo = le_titulo();
+            url = le_url();
 
-    titulo = le_titulo();
-    url = le_url();
+            f01(lista, titulo, url);
+        } else if (valor_menu == 2) {
+            titulo = le_titulo();
+            scanf("%d", &posicao_futura);
 
-    item = item_criar();
-    item_set_valores(item, titulo, url);
-    lista_inserir_fim(lista, item);
-    titulo = le_titulo();
-    url = le_url();
+            f02(lista, titulo, posicao_futura);
+        } else if (valor_menu == 3) {
+            f03(lista);
 
-    item = item_criar();
-    item_set_valores(item, titulo, url);
-    lista_inserir_fim(lista, item);
-    titulo = le_titulo();
-    url = le_url();
-
-    item = item_criar();
-    item_set_valores(item, titulo, url);
-    lista_inserir_fim(lista, item);
-    titulo = le_titulo();
-    url = le_url();
-
-    item = item_criar();
-    item_set_valores(item, titulo, url);
-    lista_inserir_fim(lista, item);
-
-    lista_imprimir(lista);
-
-    printf("\n---------------\n");
-    lista_troca_posicoes(lista, "5", 1);
-    lista_imprimir(lista);
-    printf("\n---------------\n");
-
-    titulo = le_titulo();
-    url = le_url();
-    item = item_criar();
-    item_set_valores(item, titulo, url);
-    lista_inserir_fim(lista, item);
-
-    lista_imprimir(lista);
+        } else if (valor_menu == 4) {
+            f04();
+        }
+    } while (1);
 
     return (0);
 }
