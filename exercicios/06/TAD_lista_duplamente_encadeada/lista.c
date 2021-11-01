@@ -126,53 +126,51 @@ boolean lista_cheia(LISTA *lista) {
 }
 
 boolean lista_troca_posicoes(LISTA *lista, char *titulo, int destino) {
+    // criacao das variaveis
     NO *p, *proximo, *anterior, *achou;
-    int i = 0, index, continuar = 1, destino_final;
+    int i = 0, continuar = 1;
     ITEM *aux;
-    destino_final = destino - 1;
 
+    // verifica se a lista e valida
     if (lista != NULL) {
         p = lista->inicio;
-
-        if (destino_final < 0) {
+        // verifica se o destino e valido
+        if (destino < 0) {
             return (true);
         }
-
+        // percorre a lista ate achar o item com o titulo dado
         while (p != NULL) {
             if (strcmp(item_get_titulo(p->item), titulo) == 0) {
                 proximo = p->proximo;
                 anterior = p->anterior;
                 achou = p;
-                index = i;
                 continuar = 0;
                 break;
             }
             p = p->proximo;
             i++;
         }
-        if (continuar || index == destino_final) {
+
+        // verifica se achou o item em questo
+        if (continuar) {
             return (false);
         }
-        if (destino_final >= lista_tamanho(lista) - 1) {
-            aux = item_criar();
-            item_set_valores(aux, item_get_titulo(p->item), item_get_url(p->item));
 
-            lista_remover_item(lista, titulo);
-            lista_inserir_fim(lista, aux);
-
-            return (TRUE);
-        } else if (destino_final == 0) {
+        // verifica se o destino e o primeiro elemento da lista
+        if (destino == 1) {
+            // cria o item e insere no inicio
             aux = item_criar();
             item_set_valores(aux, item_get_titulo(p->item), item_get_url(p->item));
 
             lista_remover_item(lista, titulo);
             lista_inserir_inicio(lista, aux);
         } else {
+            // cria o item e insere na posicao dada
             aux = item_criar();
             item_set_valores(aux, item_get_titulo(p->item), item_get_url(p->item));
 
             lista_remover_item(lista, titulo);
-            lista_inserir_posicao(lista, aux, destino_final);
+            lista_inserir_posicao(lista, aux, destino);
 
             return (TRUE);
         }
@@ -233,52 +231,46 @@ void lista_imprimir(LISTA *lista) {
 
 // funcao para inserir em uma posicao dada
 boolean lista_inserir_posicao(LISTA *lista, ITEM *item, int posicao) {
-    // declaracao das variaveis
+    // criacao das variaveis
     int i;
-    NO *no_aux, *temp;
-    char *titulo, *url;
+    NO *novo_no, *temp;
 
-    strcpy(titulo, item_get_titulo(item));
-    strcpy(url, item_get_url(item));
-
-    // verifica se a lista esta vazia
+    // verifica se a lista e valida
     if (lista->inicio == NULL) {
-        printf("Lista invalida!\n");
-        return FALSE;
-    }
-
-    temp = lista->inicio;
-    i = 0;
-
-    // roda ate a achar a posicao
-    while (i < posicao - 1 && temp != NULL) {
-        temp = temp->proximo;
-        i++;
-    }
-
-    printf("\ntemp titulo: %s", item_get_titulo(temp->item));
-    printf("\ntemp url: %s\n\n", item_get_url(temp->item));
-
-    // verifica se esta null e insere o  item
-    if (temp != NULL) {
-        // no_aux->item = item_criar();
-        // item_set_valores(no_aux->item, titulo, url);
-
-        // no_aux->proximo = temp->proximo;
-        // no_aux->anterior = temp;
-
-        // if (temp->proximo != NULL) {
-        //     temp->proximo->anterior = no_aux;
-        // }
-
-        // temp->proximo = no_aux;
-
-        // lista->tamanho++;
+        printf("Lista vazia\n");
+        return (FALSE);
     } else {
-        // nao de certo
-        printf("Posicao invalida\n");
-        return FALSE;
-    }
+        temp = lista->inicio;
+        i = 1;
 
-    return TRUE;
+        // percorre ate achar o NO na posicao dada
+        while (i < posicao - 1 && temp != NULL) {
+            temp = temp->proximo;
+            i++;
+        }
+        // verifica a posicao dada
+        if (posicao == 1) {
+            // insere no inicio
+            lista_inserir_inicio(lista, item);
+        } else if (posicao >= lista->tamanho + 1) {
+            // insere no fim
+            lista_inserir_fim(lista, item);
+        } else if (temp != NULL) {
+            // cria o NO e ajusta os ponteiros
+            novo_no = (NO *)malloc(sizeof(NO));
+
+            novo_no->item = item;
+            novo_no->proximo = temp->proximo;
+            novo_no->anterior = temp;
+
+            if (temp->proximo != NULL) {
+                temp->proximo->anterior = novo_no;
+            }
+
+            temp->proximo = novo_no;
+            return (TRUE);
+        } else {
+            return (FALSE);
+        }
+    }
 }
