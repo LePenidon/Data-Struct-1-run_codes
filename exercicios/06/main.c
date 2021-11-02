@@ -20,6 +20,9 @@ char *le_titulo() {
     while (string[i] != '\n') {
         final[i] = string[i];
         i++;
+        if (string[i] == '\r') {
+            break;
+        }
         if (string[i] == '\n') {
             final[i] = '\0';
             break;
@@ -44,6 +47,9 @@ char *le_url() {
     while (string[i] != '\n') {
         final[i] = string[i];
         i++;
+        if (string[i] == '\r') {
+            break;
+        }
         if (string[i] == '\n') {
             final[i] = '\0';
             break;
@@ -106,9 +112,8 @@ int main(void) {
 
     // while infinito (acaba quando valor_menu == 4)
     do {
-        // le a opcao do usuario
-        scanf(" %d", &valor_menu);
-        getchar();
+        // le a opcao do usuario'
+        scanf("%d\n", &valor_menu);
 
         // chama a funcao respectiva que o usuario deseja
         if (valor_menu == 1) {
