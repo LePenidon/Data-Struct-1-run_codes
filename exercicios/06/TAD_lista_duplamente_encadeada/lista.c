@@ -103,7 +103,7 @@ boolean lista_busca(LISTA *lista, char *titulo) {
     if (lista != NULL) {
         p = lista->inicio;
         while (p != NULL) {
-            if (item_get_titulo(p->item) == titulo)
+            if (strcmp(item_get_titulo(p->item), titulo) == 0)
                 return (TRUE);
             p = p->proximo;
         }

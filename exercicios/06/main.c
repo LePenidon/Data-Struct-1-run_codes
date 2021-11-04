@@ -130,6 +130,7 @@ int main(void) {
             f03(lista);
 
         } else if (valor_menu == 4) {
+            lista_apagar(&lista);
             // sai do programa
             f04();
         }
